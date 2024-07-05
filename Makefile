@@ -13,7 +13,7 @@ COMPOSE_PROJECT_NAME ?=$(CI_PROJECT_NAME)
 
 build-app:
 	@echo "build image for $(IMG)"
-	docker build -t "$(IMG):$(TAG)" -f ./build/Dockerfile .
+	docker build -t "$(IMG):$(TAG)" -f Dockerfile .
 ifneq ($(TAG), main)
 	docker tag "$(IMG):$(TAG)" "$(IMG):testing"
 endif
