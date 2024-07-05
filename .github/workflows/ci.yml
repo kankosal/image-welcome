@@ -17,12 +17,6 @@ jobs:
         image: docker:25.0.3-dind
         options: --privileged
 
-    env:
-      DOCKER_TLS_CERTDIR: "/certs"
-      CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-      CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-      CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -31,7 +25,12 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo "$env:CI_REGISTRY_PASSWORD" | docker login "$env:CI_REGISTRY" -u "$env:CI_REGISTRY_USER" --password-stdin
+      env:
+        DOCKER_TLS_CERTDIR: "/certs"
+        CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
+        CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
+        CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
 
     - name: Build Docker image
       run: make build
@@ -48,12 +47,6 @@ jobs:
         image: docker:25.0.3-dind
         options: --privileged
 
-    env:
-      DOCKER_TLS_CERTDIR: "/certs"
-      CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-      CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-      CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
 
     steps:
@@ -64,7 +57,12 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo "$env:CI_REGISTRY_PASSWORD" | docker login "$env:CI_REGISTRY" -u "$env:CI_REGISTRY_USER" --password-stdin
+      env:
+        DOCKER_TLS_CERTDIR: "/certs"
+        CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
+        CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
+        CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
 
     - name: Tag Docker image for production
       run: make tag-prod
