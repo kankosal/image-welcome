@@ -18,4 +18,3 @@ EXPOSE 80
 
 # Command to run the application
 CMD ["node", "app.js"]
-# ,master.mysabay.com.
