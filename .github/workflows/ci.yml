@@ -31,7 +31,7 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
     - name: Build Docker image
       run: make build
@@ -64,7 +64,7 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
     - name: Tag Docker image for production
       run: make tag-prod
