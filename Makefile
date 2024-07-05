@@ -1,7 +1,7 @@
 #Makefile
 
 CI_REGISTRY          ?= ghcr.io
-CI_PROJECT_NAMESPACE ?= kosalkan
+CI_PROJECT_NAMESPACE ?= kankosal
 CI_PROJECT_NAME      ?= image-welcome
 CI_COMMIT_REF_NAME   ?= master
 
