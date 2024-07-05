@@ -27,10 +27,7 @@ jobs:
     - name: Log in to Docker registry
       env:
         DOCKER_TLS_CERTDIR: "/certs"
-        CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-        CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-        CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin "${{ secrets.CI_REGISTRY }}"
 
     - name: Build Docker image
       run: make build
@@ -59,10 +56,7 @@ jobs:
     - name: Log in to Docker registry
       env:
         DOCKER_TLS_CERTDIR: "/certs"
-        CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
-        CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
-        CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
-      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+      run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.CI_REGISTRY_USER }}" --password-stdin "${{ secrets.CI_REGISTRY }}"
 
     - name: Tag Docker image for production
       run: make tag-prod
