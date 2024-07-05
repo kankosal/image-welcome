@@ -25,7 +25,7 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo "$env:CI_REGISTRY_PASSWORD" | docker login "$env:CI_REGISTRY" -u "$env:CI_REGISTRY_USER" --password-stdin
+      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
       env:
         DOCKER_TLS_CERTDIR: "/certs"
         CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
@@ -57,7 +57,7 @@ jobs:
       run: sudo apt-get install -y make
 
     - name: Log in to Docker registry
-      run: echo "$env:CI_REGISTRY_PASSWORD" | docker login "$env:CI_REGISTRY" -u "$env:CI_REGISTRY_USER" --password-stdin
+      run: echo ${{ secrets.CI_REGISTRY_PASSWORD }} | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
       env:
         DOCKER_TLS_CERTDIR: "/certs"
         CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
